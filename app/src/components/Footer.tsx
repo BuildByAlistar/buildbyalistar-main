@@ -3,7 +3,6 @@ import { Zap, Mail, Phone, MapPin } from 'lucide-react';
 
 const footerLinks = {
   services: [
-    { name: 'AI Data Entry', path: '/data-entry' },
     { name: 'AI Chatbots', path: '/chatbots' },
     { name: 'WhatsApp Solutions', path: '/whatsapp' },
     { name: 'Workflow Automation', path: '/workflows' },
