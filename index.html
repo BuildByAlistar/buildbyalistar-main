@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Universal Data Entry Tool - Fast Data Entry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0e1117;
+            color: #fafafa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: #1a1d24;
+            border-right: 1px solid #2d3139;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo-container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #2D6BFF, #FF6B35);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .logo-container h2 {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .logo-container p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #2d3139;
+            margin: 20px 0;
+        }
+        
+        .pricing-section h3 {
+            color: #fafafa;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #2D6BFF;
+        }
+        
+        .pricing-card .plan-name {
+            color: #2D6BFF;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .pricing-card .price {
+            color: #FF6B35;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .pricing-card .entries {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .subscribe-btn {
+            display: block;
+            background: linear-gradient(90deg, #FF6B35, #FF8F5C);
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .support-section h3 {
+            color: #fafafa;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .support-section p {
+            color: #888;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+        
+        .support-section a {
+            color: #2D6BFF;
+            text-decoration: none;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 320px;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #2D6BFF, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        /* Access Section */
+        .access-section {
+            background: #1a1d24;
+            border: 2px solid #2D6BFF;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .access-section h3 {
+            color: #fafafa;
+            margin-bottom: 20px;
+        }
+        
+        .access-form {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .input-group {
+            flex: 1;
+        }
+        
+        .input-group label {
+            display: block;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #0e1117;
+            border: 1px solid #2d3139;
+            border-radius: 8px;
+            color: #fafafa;
+            font-size: 1rem;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #2D6BFF;
+        }
+        
+        .verify-btn {
+            background: linear-gradient(90deg, #2D6BFF, #7B4DFF);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .verify-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .access-info {
+            background: #1e3a5f;
+            color: #93c5fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2D6BFF;
+            margin-top: 15px;
+        }
+        
+        .success-msg {
+            background: #1a472a;
+            color: #4ade80;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .error-msg {
+            background: #7f1d1d;
+            color: #f87171;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background: #1a1d24;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .upload-section h3 {
+            color: #fafafa;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #2d3139;
+            border-radius: 12px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: #2D6BFF;
+        }
+        
+        .upload-area .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area p {
+            color: #888;
+            margin: 5px 0;
+        }
+        
+        .upload-area .formats {
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        /* Process Button */
+        .process-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .process-btn {
+            background: linear-gradient(90deg, #2D6BFF, #7B4DFF);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(45, 107, 255, 0.4);
+        }
+        
+        .process-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: #1a1d24;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .results-section h3 {
+            color: #fafafa;
+            margin-bottom: 20px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #2d3139;
+        }
+        
+        .data-table th {
+            background: #0e1117;
+            color: #2D6BFF;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            color: #ccc;
+        }
+        
+        .data-table tr:hover td {
+            background: #252a33;
+        }
+        
+        /* Download Button */
+        .download-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .download-btn {
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid #2d3139;
+            margin-top: 40px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        /* Hidden by default */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+            
+            .access-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-placeholder">📄</div>
+                <h2>Fast Data Entry</h2>
+                <p>AI-Powered Document Processing</p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="pricing-section">
+                <h3>💎 Pricing Plans</h3>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="price">20 AED</div>
+                    <div class="entries">20 Entries</div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">Basic</div>
+                    <div class="price">50 AED</div>
+                    <div class="entries">55 Entries</div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">VIP</div>
+                    <div class="price">1,800 AED</div>
+                    <div class="entries">3,000 Entries</div>
+                </div>
+            </div>
+            
+            <a href="https://pay.ziina.com/buidbyalistar/LhhIBy3-m" target="_blank" class="subscribe-btn">
+                🚀 Subscribe Now
+            </a>
+            
+            <div class="divider"></div>
+            
+            <div class="support-section">
+                <h3>📞 Support</h3>
+                <p>📧 buidbyalistar@gmail.com</p>
+                <p>📱 +971 55 879 6245</p>
+                <p><a href="https://wa.me/971558796245">💬 WhatsApp</a></p>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1>UAE Universal Data Entry Tool</h1>
+                <p>AI-Powered Document Processing for Passports, Visas, Emirates ID & More</p>
+            </div>
+            
+            <!-- Access Section -->
+            <div class="access-section">
+                <h3>🔐 Access Verification</h3>
+                <div class="access-form">
+                    <div class="input-group">
+                        <label>Enter Access Code</label>
+                        <input type="password" id="accessCode" placeholder="Enter FREE for trial or your VIP code">
+                    </div>
+                    <button class="verify-btn" onclick="verifyAccess()">🔓 Verify Access</button>
+                </div>
+                <div id="accessMessage"></div>
+                <div class="access-info" id="accessInfo">
+                    ℹ️ <strong>Get Access:</strong> Use code "FREE" for 5 files trial or subscribe for unlimited access.
+                </div>
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="upload-section hidden" id="uploadSection">
+                <h3>📁 Upload Documents</h3>
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="icon">📎</div>
+                    <p><strong>Click to upload or drag and drop</strong></p>
+                    <p class="formats">Supported: PDF, JPG, PNG</p>
+                    <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFiles(this.files)">
+                </div>
+                <div id="fileList" style="margin-top: 15px;"></div>
+            </div>
+            
+            <!-- Process Button -->
+            <div class="process-section hidden" id="processSection">
+                <button class="process-btn" onclick="processDocuments()">🚀 Process Documents</button>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="results-section hidden" id="resultsSection">
+                <h3>📊 Results</h3>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Source File</th>
+                                <th>Document Type</th>
+                                <th>Name</th>
+                                <th>ID Number</th>
+                                <th>Expiry Date</th>
+                                <th>Nationality</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>passport_sample.pdf</td>
+                                <td>Passport</td>
+                                <td>AHMED MOHAMMED ALI</td>
+                                <td>P12345678</td>
+                                <td>15-03-2028</td>
+                                <td>UAE</td>
+                            </tr>
+                            <tr>
+                                <td>emirates_id.jpg</td>
+                                <td>Emirates ID</td>
+                                <td>FATIMA HASSAN</td>
+                                <td>784-1234-5678901-2</td>
+                                <td>20-11-2027</td>
+                                <td>UAE</td>
+                            </tr>
+                            <tr>
+                                <td>visa_document.png</td>
+                                <td>Residence Visa</td>
+                                <td>MOHAMMAD KHAN</td>
+                                <td>RV-2024-789456</td>
+                                <td>30-06-2026</td>
+                                <td>PAKISTAN</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="download-section">
+                    <button class="download-btn" onclick="downloadExcel()">📥 Download Excel File</button>
+                </div>
+                
+                <div class="success-msg">
+                    ✅ Successfully processed 3 document(s) | 6 fields extracted
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="footer">
+                <p>Powered by <strong>Build By Alistar</strong> | AI Automation Solutions</p>
+                <p>📧 buidbyalistar@gmail.com | 📱 +971 55 879 6245</p>
+            </footer>
+        </main>
+    </div>
+    
+    <script>
+        let accessVerified = false;
+        let fileLimit = 0;
+        let uploadedFiles = [];
+        
+        function verifyAccess() {
+            const code = document.getElementById('accessCode').value.trim();
+            const messageDiv = document.getElementById('accessMessage');
+            const infoDiv = document.getElementById('accessInfo');
+            
+            if (code === 'FREE') {
+                accessVerified = true;
+                fileLimit = 5;
+                messageDiv.innerHTML = '<div class="success-msg">✅ FREE Access Granted! Limit: 5 Files</div>';
+                infoDiv.innerHTML = '✅ <strong>Access Type:</strong> FREE Trial | <strong>File Limit:</strong> 5 files';
+                showUploadSection();
+            } else if (code === 'DXB2026') {
+                accessVerified = true;
+                fileLimit = 3000;
+                messageDiv.innerHTML = '<div class="success-msg">✅ VIP Access Granted! Limit: 3,000 Files</div>';
+                infoDiv.innerHTML = '✅ <strong>Access Type:</strong> VIP Unlimited | <strong>File Limit:</strong> 3,000 files';
+                showUploadSection();
+            } else {
+                accessVerified = false;
+                messageDiv.innerHTML = '<div class="error-msg">❌ Invalid Code. Please Subscribe.</div>';
+                infoDiv.innerHTML = 'ℹ️ <strong>Get Access:</strong> Use code "FREE" for 5 files trial or <a href="https://pay.ziina.com/buidbyalistar/LhhIBy3-m" target="_blank" style="color: #2D6BFF;">subscribe</a> for unlimited access.';
+                hideUploadSection();
+            }
+        }
+        
+        function showUploadSection() {
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('processSection').classList.remove('hidden');
+        }
+        
+        function hideUploadSection() {
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('processSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+        }
+        
+        function handleFiles(files) {
+            uploadedFiles = Array.from(files);
+            const fileListDiv = document.getElementById('fileList');
+            
+            if (uploadedFiles.length > fileLimit) {
+                fileListDiv.innerHTML = `<div class="error-msg">❌ File limit exceeded! Your plan allows ${fileLimit} files. You uploaded ${uploadedFiles.length}.</div>`;
+                uploadedFiles = [];
+                return;
+            }
+            
+            let html = `<div class="success-msg">📎 ${uploadedFiles.length} file(s) selected. Ready to process!</div>`;
+            html += '<ul style="margin-top: 10px; color: #888; padding-left: 20px;">';
+            uploadedFiles.forEach(file => {
+                html += `<li>${file.name}</li>`;
+            });
+            html += '</ul>';
+            
+            fileListDiv.innerHTML = html;
+        }
+        
+        function processDocuments() {
+            if (uploadedFiles.length === 0) {
+                alert('Please upload files first!');
+                return;
+            }
+            
+            // Show loading state
+            const btn = document.querySelector('.process-btn');
+            btn.textContent = '⏳ Processing...';
+            btn.disabled = true;
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                document.getElementById('resultsSection').classList.remove('hidden');
+                btn.textContent = '🚀 Process Documents';
+                btn.disabled = false;
+                
+                // Scroll to results
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+        
+        function downloadExcel() {
+            // Create sample CSV content
+            const csvContent = `Source File,Document Type,Name,ID Number,Expiry Date,Nationality
+passport_sample.pdf,Passport,AHMED MOHAMMED ALI,P12345678,15-03-2028,UAE
+emirates_id.jpg,Emirates ID,FATIMA HASSAN,784-1234-5678901-2,20-11-2027,UAE
+visa_document.png,Residence Visa,MOHAMMAD KHAN,RV-2024-789456,30-06-2026,PAKISTAN`;
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `UAE_Data_Extraction_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Drag and drop support
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#2D6BFF';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#2d3139';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#2d3139';
+            handleFiles(e.dataTransfer.files);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Data Entry Automation Suite | Build By Alistar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f97316;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --card: #1e293b;
+            --border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-outline:hover {
+            background: var(--card);
+            border-color: var(--primary);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+        }
+        
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-bottom: 4rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero h2 .gradient {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .hero-feature i {
+            color: var(--success);
+        }
+        
+        /* Access Systems */
+        .access-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+        }
+        
+        .access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .access-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .access-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        
+        .access-card.featured {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.15);
+        }
+        
+        .access-card.featured::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--secondary), #ea580c);
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .access-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .access-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .access-icon.trial { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+        .access-icon.credits { background: rgba(99, 102, 241, 0.2); color: var(--primary); }
+        .access-icon.subscription { background: rgba(249, 115, 22, 0.2); color: var(--secondary); }
+        
+        .access-title h4 {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+        
+        .access-title p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .access-content {
+            margin-bottom: 1rem;
+        }
+        
+        .access-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .trial-requirement {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .trial-requirement a {
+            color: var(--success);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .credit-options, .subscription-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .credit-option, .subscription-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .credit-option:hover, .subscription-option:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .credit-option.selected, .subscription-option.selected {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--primary);
+        }
+        
+        .credit-info, .subscription-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .credit-info .amount, .subscription-info .entries {
+            font-weight: 600;
+        }
+        
+        .credit-info .price, .subscription-info .price {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .credit-info .per-entry {
+            font-size: 0.75rem;
+            color: var(--success);
+        }
+        
+        .badge {
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+        
+        .badge-primary {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+        
+        /* Category Selector */
+        .category-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-section h4 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .category-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-area p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-area .formats {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Process Button */
+        .process-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .process-btn {
+            padding: 18px 60px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .results-section h4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .data-table th {
+            background: var(--dark);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-header p {
+            color: var(--text-muted);
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--darker);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-brand {
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-brand h3 {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-contact a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .access-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-actions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>AI Data Entry Suite</h1>
+                    <p>By Build By Alistar</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="https://wa.me/971558796245" class="btn btn-outline" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Support
+                </a>
+                <a href="https://pay.ziina.com/buidbyalistar/LhhIBy3-m" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-credit-card"></i> Buy Credits
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                Intelligent Document Processing Platform
+            </div>
+            <h2>
+                Stop Manual Typing.<br>
+                <span class="gradient">Cut Your Data Entry Costs.</span>
+            </h2>
+            <p class="hero-subtitle">
+                Transform Your Data Entry Process: Upload, Extract, and Excel with Precision and Speed
+            </p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Drag & Drop 100 files at once</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Instant Excel: Get formatted sheets ready</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>From Any Document to Excel Instantly</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Access Systems -->
+        <section class="access-section">
+            <div class="section-header">
+                <h3>Choose Your Access Method</h3>
+                <p>Select the option that works best for your needs</p>
+            </div>
+            
+            <div class="access-grid">
+                <!-- Free Trial -->
+                <div class="access-card">
+                    <div class="access-header">
+                        <div class="access-icon trial">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="access-title">
+                            <h4>Free Trial</h4>
+                            <p>Try before you buy</p>
+                        </div>
+                    </div>
+                    <div class="access-content">
+                        <p>Get 3 free entries to test our AI-powered data extraction.</p>
+                        <div class="trial-requirement">
+                            <i class="fab fa-instagram"></i>
+                            <strong>Requirement:</strong> Follow 
+                            <a href="https://www.instagram.com/buildbyalistar?igsh=MTRyM2Q4dHNudzh2Mg==" target="_blank">@buildbyalistar</a>
+                            on Instagram
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="openTrialModal()" style="width: 100%;">
+                        <i class="fas fa-play"></i> Start Free Trial
+                    </button>
+                </div>
+
+                <!-- Buy Credits -->
+                <div class="access-card featured">
+                    <div class="access-header">
+                        <div class="access-icon credits">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="access-title">
+                            <h4>Buy Credits</h4>
+                            <p>Pay-as-you-go flexibility</p>
+                        </div>
+                    </div>
+                    <div class="access-content">
+                        <p>Purchase entry packs and use them anytime. No expiry.</p>
+                        <div class="credit-options">
+                            <div class="credit-option" onclick="selectCredit(this, 20, 20)">
+                                <div class="credit-info">
+                                    <span class="amount">20 Entries</span>
+                                    <span class="price">20 AED <span class="per-entry">(1.00/entry)</span></span>
+                                </div>
+                            </div>
+                            <div class="credit-option" onclick="selectCredit(this, 50, 55)">
+                                <div class="credit-info">
+                                    <span class="amount">55 Entries</span>
+                                    <span class="price">50 AED <span class="per-entry">(0.90/entry)</span></span>
+                                </div>
+                            </div>
+                            <div class="credit-option" onclick="selectCredit(this, 100, 125)">
+                                <div class="credit-info">
+                                    <span class="amount">125 Entries</span>
+                                    <span class="price">100 AED <span class="per-entry">(0.80/entry)</span></span>
+                                </div>
+                            </div>
+                            <div class="credit-option" onclick="selectCredit(this, 300, 400)">
+                                <div class="credit-info">
+                                    <span class="amount">400 Entries</span>
+                                    <span class="price">300 AED <span class="per-entry">(0.75/entry)</span></span>
+                                </div>
+                            </div>
+                            <div class="credit-option" onclick="selectCredit(this, 500, 750)">
+                                <div class="credit-info">
+                                    <span class="amount">750 Entries</span>
+                                    <span class="price">500 AED <span class="per-entry">(0.66/entry)</span></span>
+                                </div>
+                            </div>
+                            <div class="credit-option selected" onclick="selectCredit(this, 1800, 3000)">
+                                <div class="credit-info">
+                                    <span class="amount">3,000 Entries</span>
+                                    <span class="price">1,800 AED <span class="per-entry">(0.60/entry)</span></span>
+                                </div>
+                                <span class="badge badge-success">BEST VALUE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://pay.ziina.com/buidbyalistar/LhhIBy3-m" class="btn btn-primary" target="_blank" style="width: 100%;">
+                        <i class="fas fa-shopping-cart"></i> Purchase Credits
+                    </a>
+                </div>
+
+                <!-- Subscription -->
+                <div class="access-card">
+                    <div class="access-header">
+                        <div class="access-icon subscription">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div class="access-title">
+                            <h4>Monthly Subscription</h4>
+                            <p>Unlimited monthly entries</p>
+                        </div>
+                    </div>
+                    <div class="access-content">
+                        <p>Recurring monthly billing. Best for regular data entry needs.</p>
+                        <div class="subscription-options">
+                            <div class="subscription-option" onclick="selectSubscription(this)">
+                                <div class="subscription-info">
+                                    <span class="entries">500 entries/month</span>
+                                    <span class="price">300 AED/month</span>
+                                </div>
+                                <span class="badge badge-primary">Save 400 AED</span>
+                            </div>
+                            <div class="subscription-option" onclick="selectSubscription(this)">
+                                <div class="subscription-info">
+                                    <span class="entries">1,000 entries/month</span>
+                                    <span class="price">500 AED/month</span>
+                                </div>
+                                <span class="badge badge-primary">Save 800 AED</span>
+                            </div>
+                            <div class="subscription-option" onclick="selectSubscription(this)">
+                                <div class="subscription-info">
+                                    <span class="entries">2,000 entries/month</span>
+                                    <span class="price">1,200 AED/month</span>
+                                </div>
+                                <span class="badge badge-primary">Save 1,600 AED</span>
+                            </div>
+                            <div class="subscription-option selected" onclick="selectSubscription(this)">
+                                <div class="subscription-info">
+                                    <span class="entries">3,000 entries/month</span>
+                                    <span class="price">1,500 AED/month</span>
+                                </div>
+                                <span class="badge badge-warning">POPULAR</span>
+                            </div>
+                            <div class="subscription-option" onclick="selectSubscription(this)">
+                                <div class="subscription-info">
+                                    <span class="entries">5,000 entries/month</span>
+                                    <span class="price">1,750 AED/month</span>
+                                </div>
+                                <span class="badge badge-success">BEST VALUE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://pay.ziina.com/buidbyalistar/LhhIBy3-m" class="btn btn-warning" target="_blank" style="width: 100%;">
+                        <i class="fas fa-rocket"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Selector -->
+        <section class="category-section">
+            <h4><i class="fas fa-folder-open"></i> Document Category</h4>
+            <select class="category-select" id="categorySelect">
+                <option value="auto">Auto-detect (Recommended)</option>
+                <option value="accounting">Accounting / Finance</option>
+                <option value="company">Company Document</option>
+                <option value="contracts">Contracts / Legal</option>
+                <option value="support">Customer Support</option>
+                <option value="deliveries">Deliveries</option>
+                <option value="emirates">Emirates ID Automation</option>
+                <option value="general">General Documents</option>
+                <option value="hr">HR / Employees</option>
+                <option value="insurance-medical">Insurance Medical</option>
+                <option value="insurance-motor">Insurance Motor</option>
+                <option value="inventory">Inventory / Stock</option>
+                <option value="logistics">Logistics</option>
+                <option value="passport">Passport Automation</option>
+                <option value="purchase">Purchase / Suppliers</option>
+                <option value="restaurants">Restaurants</option>
+                <option value="salons">Salons</option>
+                <option value="fleet">Vehicle Fleet</option>
+                <option value="visa">Visa Page Automation</option>
+            </select>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section" id="uploadSection">
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h4>Drag & Drop Your Files Here</h4>
+                <p>or click to browse from your computer</p>
+                <p class="formats">Supported formats: PDF, JPG, PNG, JPEG (Max 100 files)</p>
+                <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFiles(this.files)">
+            </div>
+            <div id="fileList" style="margin-top: 1.5rem;"></div>
+        </section>
+
+        <!-- Process Button -->
+        <section class="process-section" id="processSection">
+            <button class="btn btn-primary process-btn" onclick="processDocuments()">
+                <i class="fas fa-magic"></i> Start Processing
+            </button>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section hidden" id="resultsSection">
+            <h4><i class="fas fa-table"></i> Extracted Data</h4>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Source File</th>
+                            <th>Category</th>
+                            <th>Document Type</th>
+                            <th>Name / Company</th>
+                            <th>ID / Reference</th>
+                            <th>Date / Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>invoice_001.pdf</td>
+                            <td>Accounting</td>
+                            <td>Invoice</td>
+                            <td>ABC Trading LLC</td>
+                            <td>INV-2024-001</td>
+                            <td>15,750 AED</td>
+                            <td><span class="badge badge-success">Extracted</span></td>
+                        </tr>
+                        <tr>
+                            <td>passport_scan.jpg</td>
+                            <td>Passport</td>
+                            <td>Passport</td>
+                            <td>MOHAMMED ALI KHAN</td>
+                            <td>P78456912</td>
+                            <td>Exp: 15/03/2028</td>
+                            <td><span class="badge badge-success">Extracted</span></td>
+                        </tr>
+                        <tr>
+                            <td>emirates_id.png</td>
+                            <td>Emirates ID</td>
+                            <td>Emirates ID</td>
+                            <td>FATIMA HASSAN</td>
+                            <td>784-1234-5678901-2</td>
+                            <td>Exp: 20/11/2027</td>
+                            <td><span class="badge badge-success">Extracted</span></td>
+                        </tr>
+                        <tr>
+                            <td>contract.pdf</td>
+                            <td>Contracts</td>
+                            <td>Service Agreement</td>
+                            <td>XYZ Services</td>
+                            <td>CTR-2024-089</td>
+                            <td>Signed: 01/01/2024</td>
+                            <td><span class="badge badge-success">Extracted</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn btn-success" onclick="downloadExcel()">
+                    <i class="fas fa-download"></i> Download Excel File
+                </button>
+            </div>
+            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 1rem; border-radius: 10px; text-align: center; margin-top: 1.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                <strong>Successfully processed 4 documents</strong> | 28 fields extracted | Ready for download
+            </div>
+        </section>
+    </main>
+
+    <!-- Trial Modal -->
+    <div class="modal-overlay" id="trialModal">
+        <div class="modal">
+            <div class="modal-header">
+                <i class="fab fa-instagram"></i>
+                <h3>Start Your Free Trial</h3>
+                <p>Follow us on Instagram to unlock 3 free entries</p>
+            </div>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <a href="https://www.instagram.com/buildbyalistar?igsh=MTRyM2Q4dHNudzh2Mg==" target="_blank" class="btn btn-primary" style="width: 100%;">
+                    <i class="fab fa-instagram"></i> Follow @buildbyalistar
+                </a>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">
+                After following, enter the trial code below:
+            </p>
+            <input type="text" class="modal-input" id="trialCode" placeholder="Enter code: TRIAL">
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeTrialModal()">Cancel</button>
+                <button class="btn btn-success" onclick="verifyTrial()">Verify & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>AI Data Entry Automation Suite</h3>
+                <p>Professional Data Entry AI by Build By Alistar</p>
+            </div>
+            <div class="footer-contact">
+                <a href="https://wa.me/971558796245" target="_blank">
+                    <i class="fab fa-whatsapp"></i> +971 55 879 6245
+                </a>
+                <a href="mailto:buidbyalistar@gmail.com">
+                    <i class="fas fa-envelope"></i> buidbyalistar@gmail.com
+                </a>
+                <a href="tel:+971558796245">
+                    <i class="fas fa-phone"></i> Call Us
+                </a>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/buildbyalistar?igsh=MTRyM2Q4dHNudzh2Mg==" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/971558796245" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:buidbyalistar@gmail.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="footer-copyright">
+                Powered by <strong>Build By Alistar</strong> | AI Automation Solutions
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let selectedCredits = { price: 1800, entries: 3000 };
+        let uploadedFiles = [];
+        let trialVerified = false;
+
+        function openTrialModal() {
+            document.getElementById('trialModal').classList.add('active');
+        }
+
+        function closeTrialModal() {
+            document.getElementById('trialModal').classList.remove('active');
+        }
+
+        function verifyTrial() {
+            const code = document.getElementById('trialCode').value.trim().toUpperCase();
+            if (code === 'TRIAL') {
+                trialVerified = true;
+                closeTrialModal();
+                showNotification('✅ Trial activated! You have 3 free entries.', 'success');
+                document.getElementById('uploadSection').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                showNotification('❌ Invalid code. Please follow @buildbyalistar and try again.', 'error');
+            }
+        }
+
+        function selectCredit(element, price, entries) {
+            document.querySelectorAll('.credit-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedCredits = { price, entries };
+        }
+
+        function selectSubscription(element) {
+            document.querySelectorAll('.subscription-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function handleFiles(files) {
+            uploadedFiles = Array.from(files);
+            const fileListDiv = document.getElementById('fileList');
+            
+            let html = `<div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); padding: 1rem; border-radius: 10px;">`;
+            html += `<p style="margin-bottom: 0.5rem;"><i class="fas fa-paperclip" style="color: var(--primary);"></i> <strong>${uploadedFiles.length} file(s) selected</strong></p>`;
+            html += `<ul style="list-style: none; padding: 0; margin: 0; color: var(--text-muted); font-size: 0.9rem;">`;
+            uploadedFiles.slice(0, 5).forEach(file => {
+                html += `<li style="padding: 4px 0;"><i class="fas fa-file" style="margin-right: 8px;"></i>${file.name}</li>`;
+            });
+            if (uploadedFiles.length > 5) {
+                html += `<li style="padding: 4px 0; color: var(--text-muted);">... and ${uploadedFiles.length - 5} more</li>`;
+            }
+            html += `</ul></div>`;
+            
+            fileListDiv.innerHTML = html;
+        }
+
+        function processDocuments() {
+            if (uploadedFiles.length === 0) {
+                showNotification('Please upload files first!', 'error');
+                return;
+            }
+            
+            const btn = document.querySelector('.process-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                document.getElementById('resultsSection').classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-magic"></i> Start Processing';
+                btn.disabled = false;
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+                showNotification('✅ Processing complete! Download your Excel file.', 'success');
+            }, 2000);
+        }
+
+        function downloadExcel() {
+            const csvContent = `Source File,Category,Document Type,Name/Company,ID/Reference,Date/Amount,Status
+invoice_001.pdf,Accounting,Invoice,ABC Trading LLC,INV-2024-001,15750 AED,Extracted
+passport_scan.jpg,Passport,Passport,MOHAMMED ALI KHAN,P78456912,Exp: 15/03/2028,Extracted
+emirates_id.png,Emirates ID,Emirates ID,FATIMA HASSAN,784-1234-5678901-2,Exp: 20/11/2027,Extracted
+contract.pdf,Contracts,Service Agreement,XYZ Services,CTR-2024-089,Signed: 01/01/2024,Extracted`;
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `AI_Data_Extraction_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('📥 Download started!', 'success');
+        }
+
+        function showNotification(message, type) {
+            const div = document.createElement('div');
+            div.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 16px 24px;
+                border-radius: 10px;
+                font-weight: 600;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+                ${type === 'success' ? 'background: rgba(34, 197, 94, 0.9); color: white;' : 'background: rgba(239, 68, 68, 0.9); color: white;'}
+            `;
+            div.textContent = message;
+            document.body.appendChild(div);
+            
+            setTimeout(() => {
+                div.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => div.remove(), 300);
+            }, 3000);
+        }
+
+        // Drag and drop
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.background = 'rgba(99, 102, 241, 0.05)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--border)';
+            uploadArea.style.background = 'transparent';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--border)';
+            uploadArea.style.background = 'transparent';
+            handleFiles(e.dataTransfer.files);
+        });
+    </script>
+</body>
+</html>
