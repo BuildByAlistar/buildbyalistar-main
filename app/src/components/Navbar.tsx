@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -43,9 +43,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#2D6BFF] to-[#FF6B35] rounded-xl opacity-80 group-hover:opacity-100 transition-opacity" />
-              <Zap className="relative w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-black/40 border border-white/10 transition-all duration-300 group-hover:border-[#2D6BFF]/50">
+              <img
+                src="/logo.png"
+                alt="Build By Alistar logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="hidden sm:block">
               <span className="text-lg font-bold text-white">Build By</span>
