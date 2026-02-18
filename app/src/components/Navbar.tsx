@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap, Bot } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', path: '/' },
   { name: 'Templates', path: '/templates' },
   { name: 'Services', path: '/services' },
-  { name: 'AI Data Entry', path: '/data-entry' },
   { name: 'WhatsApp', path: '/whatsapp' },
   { name: 'Chatbots', path: '/chatbots' },
   { name: 'Courses', path: '/courses' },
@@ -71,15 +70,15 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
           <div className="hidden lg:block">
-            <Link
-              to="/data-entry"
-              className="btn-primary text-sm flex items-center gap-2"
+            <a
+              href="https://tools.buildbyalistar.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 text-[#A7B1C8] hover:text-white hover:bg-[rgba(45,107,255,0.1)]"
             >
-              <Bot className="w-4 h-4" />
-              <span>AI Data Entry</span>
-            </Link>
+              AI Tools
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,13 +111,14 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/data-entry"
-              className="btn-primary text-sm text-center mt-3"
+            <a
+              href="https://tools.buildbyalistar.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 text-[#A7B1C8] hover:text-white hover:bg-[rgba(45,107,255,0.1)]"
             >
-              <Bot className="w-4 h-4 inline mr-2" />
-              AI Data Entry
-            </Link>
+              AI Tools
+            </a>
           </div>
         </div>
       </div>

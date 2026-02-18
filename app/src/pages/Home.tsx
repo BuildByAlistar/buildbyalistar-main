@@ -134,10 +134,15 @@ export default function Home() {
                     <span>View Templates</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link to="/data-entry" className="btn-secondary flex items-center gap-2">
+                  <a
+                    href="https://tools.buildbyalistar.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex items-center gap-2"
+                  >
                     <Bot className="w-4 h-4" />
-                    <span>AI Data Entry</span>
-                  </Link>
+                    <span>AI Tools</span>
+                  </a>
                 </div>
 
                 {/* Trust badges */}
@@ -370,10 +375,15 @@ export default function Home() {
                 <Zap className="w-4 h-4" />
                 <span>Explore Templates</span>
               </Link>
-              <Link to="/data-entry" className="btn-secondary flex items-center gap-2">
+              <a
+                href="https://tools.buildbyalistar.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary flex items-center gap-2"
+              >
                 <Bot className="w-4 h-4" />
-                <span>Try AI Data Entry</span>
-              </Link>
+                <span>Try AI Tools</span>
+              </a>
             </div>
           </div>
         </div>

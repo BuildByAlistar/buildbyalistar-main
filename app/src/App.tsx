@@ -15,7 +15,6 @@ import Pricing from './pages/Pricing';
 import Workflows from './pages/Workflows';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import DataEntry from './pages/DataEntry';
 
 function App() {
   useEffect(() => {
@@ -45,21 +44,12 @@ function App() {
             <Route path="/workflows" element={<Workflows />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/data-entry" element={<DataEntry />} />
           </Routes>
         </main>
         
-        {/* Footer - only show on non-data-entry pages */}
-        <Routes>
-          <Route path="/data-entry" element={null} />
-          <Route path="*" element={<Footer />} />
-        </Routes>
-        
-        {/* Floating WhatsApp button - only show on non-data-entry pages */}
-        <Routes>
-          <Route path="/data-entry" element={null} />
-          <Route path="*" element={<WhatsAppButton />} />
-        </Routes>
+        <Footer />
+
+        <WhatsAppButton />
       </div>
     </Router>
   );
