@@ -40,23 +40,20 @@ export default function Navbar() {
       }`}
     >
       <div className="section-padding">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-black/40 border border-white/10 transition-all duration-300 group-hover:border-[#2D6BFF]/50">
+        <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
+          <Link to="/" className="flex items-center gap-3 group min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-[#2D6BFF]/50">
               <img
                 src="/logo.png"
                 alt="Build By Alistar logo"
                 className="w-full h-full object-contain"
               />
             </div>
-            <div className="hidden sm:block">
-              <span className="text-lg font-bold text-white">Build By</span>
-              <span className="text-lg font-bold gradient-text ml-1">Alistar</span>
-            </div>
+            <span className="text-sm sm:text-base lg:text-lg font-semibold text-white truncate">
+              Build By <span className="text-blue-400">Alistar</span>
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
@@ -84,16 +81,15 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-white rounded-lg hover:bg-[rgba(45,107,255,0.15)] transition-colors"
+            className="lg:hidden p-2 text-white rounded-lg hover:bg-[rgba(45,107,255,0.15)] transition-colors shrink-0"
+            aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ${
             isMobileMenuOpen ? 'max-h-[500px] pb-4' : 'max-h-0'
